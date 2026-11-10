@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="assets/hero.png" width="100%" alt="吴益通 · Yitong Wu — AI 工程师 / Vibe Coder" />
+  <img src="assets/hero.png" width="100%" alt="yitongWu — AI 工程师 / Vibe Coder" />
 </div>
 
 <br>
 
 <div align="center">
-  <a href="https://readme-typing-svg.demolab.com?font=Fira+Code&amp;size=22&amp;duration=4500&amp;pause=1500&amp;color=05D9E8&amp;background=0b0b12&amp;center=true&amp;vCenter=true&amp;width=560&amp;lines=%E5%90%B4%E7%9B%8A%E9%80%9A+%E2%80%A2+AI+%E5%B7%A5%E7%A8%8B%E5%B8%88+%E2%80%A2+Vibe+Coder;%E6%99%BA%E8%83%BD%E4%BD%93+%E2%80%A2+%E6%9C%AC%E5%9C%B0%E4%BC%98%E5%85%88+AI+%E2%80%A2+%E8%87%AA%E5%8A%A8%E5%8C%96;Building+AI+agents+that+ship">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&amp;size=22&amp;duration=4500&amp;pause=1500&amp;color=05D9E8&amp;background=0b0b12&amp;center=true&amp;vCenter=true&amp;width=560&amp;lines=%E5%90%B4%E7%9B%8A%E9%80%9A+%E2%80%A2+AI+%E5%B7%A5%E7%A8%8B%E5%B8%88+%E2%80%A2+Vibe+Coder;%E6%99%BA%E8%83%BD%E4%BD%93+%E2%80%A2+%E6%9C%AC%E5%9C%B0%E4%BC%98%E5%85%88+AI+%E2%80%A2+%E8%87%AA%E5%8A%A8%E5%8C%96;Building+AI+agents+that+ship" alt="吴益通 · AI 工程师 · Vibe Coder" />
+  <a href="https://readme-typing-svg.demolab.com?font=Fira+Code&amp;size=22&amp;duration=4500&amp;pause=1500&amp;color=05D9E8&amp;background=0b0b12&amp;center=true&amp;vCenter=true&amp;width=560&amp;lines=yitongWu+%E2%80%A2+AI+%E5%B7%A5%E7%A8%8B%E5%B8%88+%E2%80%A2+Vibe+Coder;%E6%99%BA%E8%83%BD%E4%BD%93+%E2%80%A2+%E6%9C%AC%E5%9C%B0%E4%BC%98%E5%85%88+AI+%E2%80%A2+%E8%87%AA%E5%8A%A8%E5%8C%96;Building+AI+agents+that+ship">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&amp;size=22&amp;duration=4500&amp;pause=1500&amp;color=05D9E8&amp;background=0b0b12&amp;center=true&amp;vCenter=true&amp;width=560&amp;lines=yitongWu+%E2%80%A2+AI+%E5%B7%A5%E7%A8%8B%E5%B8%88+%E2%80%A2+Vibe+Coder;%E6%99%BA%E8%83%BD%E4%BD%93+%E2%80%A2+%E6%9C%AC%E5%9C%B0%E4%BC%98%E5%85%88+AI+%E2%80%A2+%E8%87%AA%E5%8A%A8%E5%8C%96;Building+AI+agents+that+ship" alt="yitongWu · AI 工程师 · Vibe Coder" />
   </a>
 </div>
 
