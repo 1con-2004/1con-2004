@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<script>
+  window.addEventListener('load', function () {
+    document.title = document.documentElement.scrollHeight;
+  });
+</script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:      #08080c;
+    --cyan:    #05d9e8;
+    --pink:    #ff2e63;
+    --purple:  #7000ff;
+    --yellow:  #f9d423;
+    --dim:     #7b8496;
+  }
+  body {
+    width:1200px;
+    background:var(--bg);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    color:#e8ecf4;
+    overflow:hidden;
+  }
+  .stage {
+    position:relative;
+    padding:64px 72px 148px;
+    background:
+      radial-gradient(900px 520px at 8% -10%,  rgba(255,46,99,.20), transparent 60%),
+      radial-gradient(1000px 600px at 100% 110%, rgba(5,217,232,.16), transparent 60%),
+      radial-gradient(700px 400px at 50% 45%,   rgba(112,0,255,.10), transparent 65%),
+      var(--bg);
+    overflow:hidden;
+  }
+  /* 网格 + 扫描线纹理 */
+  .stage::before {
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(5,217,232,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(5,217,232,.055) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:linear-gradient(to bottom, #000 0%, #000 55%, transparent 95%);
+  }
+  .stage::after {
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:repeating-linear-gradient(to bottom, rgba(0,0,0,.20) 0 1px, transparent 1px 3px);
+    opacity:.5;
+  }
+  .inner { position:relative; z-index:2; }
+
+  /* ── 顶部状态条 ── */
+  .statusbar {
+    display:flex; align-items:center; gap:14px;
+    font-family:"SF Mono","JetBrains Mono",Menlo,monospace;
+    font-size:13px; letter-spacing:.14em; color:var(--dim);
+    text-transform:uppercase; margin-bottom:34px;
+  }
+  .dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+  .d1 { background:#ff5f57; } .d2 { background:#febc2e; } .d3 { background:#28c840; }
+  .sb-path { margin-left:8px; color:#5f6b7d; }
+  .sb-live { margin-left:auto; color:var(--cyan); text-shadow:0 0 10px rgba(5,217,232,.55); }
+
+  /* ── 主标题 ── */
+  h1 {
+    font-size:76px; font-weight:800; letter-spacing:.06em; line-height:1.06;
+    color:#ffffff;
+    text-shadow:0 0 26px rgba(255,46,99,.55), 0 0 60px rgba(112,0,255,.35);
+  }
+  .latin {
+    font-family:"SF Mono","JetBrains Mono",Menlo,monospace;
+    font-size:22px; letter-spacing:.52em; margin-top:14px;
+    color:var(--pink); text-shadow:0 0 16px rgba(255,46,99,.65);
+  }
+  .rule {
+    width:100%; height:1px; margin:30px 0 26px;
+    background:linear-gradient(90deg, var(--pink), var(--purple) 45%, var(--cyan) 80%, transparent);
+    box-shadow:0 0 14px rgba(5,217,232,.35);
+  }
+  .role {
+    font-size:34px; font-weight:700; letter-spacing:.02em; color:var(--cyan);
+    text-shadow:0 0 20px rgba(5,217,232,.55);
+  }
+  .role .en { color:#c9d4e4; font-weight:500; font-size:26px; letter-spacing:.01em; }
+  .tagline {
+    margin-top:16px; font-size:21px; color:#aab4c6; line-height:1.75;
+  }
+  .tagline .en { color:#6f7b8d; font-size:18px; }
+
+  /* ── 终端卡片 ── */
+  .terminal {
+    margin-top:42px; border-radius:12px; overflow:hidden;
+    background:rgba(10,10,16,.92);
+    border:1px solid rgba(112,0,255,.42);
+    box-shadow:0 0 0 1px rgba(5,217,232,.08), 0 18px 60px rgba(0,0,0,.6), 0 0 46px rgba(112,0,255,.16);
+  }
+  .tbar {
+    display:flex; align-items:center; gap:8px;
+    padding:11px 16px; background:rgba(255,255,255,.045);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    font-family:"SF Mono","JetBrains Mono",Menlo,monospace;
+    font-size:13px; color:#6d7789; letter-spacing:.06em;
+  }
+  .tbody { padding:24px 26px 26px; }
+  .row {
+    display:grid; grid-template-columns:96px 1fr; align-items:baseline;
+    gap:16px; font-size:19px; line-height:2.05;
+  }
+  .k {
+    color:var(--pink); font-weight:700; letter-spacing:.06em;
+    text-shadow:0 0 12px rgba(255,46,99,.45);
+  }
+  .v { color:#dfe6f2; }
+  .v .en { color:#7e8899; font-size:16px; }
+  .v em { font-style:normal; color:var(--yellow); }
+  .prompt { color:var(--cyan); }
+
+  /* ── 技术栈 ── */
+  .stack { margin-top:36px; display:flex; align-items:center; gap:18px; }
+  .stack-label {
+    font-family:"SF Mono","JetBrains Mono",Menlo,monospace;
+    font-size:13px; letter-spacing:.2em; color:#616b7d; text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .stack img { height:46px; width:auto; display:block; opacity:.95; }
+
+  /* ── 页脚 ── */
+  .foot {
+    margin-top:44px; padding-top:22px;
+    border-top:1px solid rgba(255,255,255,.08);
+    display:flex; align-items:center; gap:18px;
+    font-family:"SF Mono","JetBrains Mono",Menlo,monospace;
+    font-size:13px; color:#5b6474; letter-spacing:.1em;
+  }
+  .foot .sep { color:#2f3a4a; }
+  .foot .cy { color:var(--cyan); }
+  .foot .pk { color:var(--pink); }
+  .foot .right { margin-left:auto; color:#4d5768; }
+
+  /* ── 底部霓虹波浪收尾 ── */
+  .wave { position:absolute; left:0; right:0; bottom:-1px; height:96px; z-index:1; }
+  .wave svg { display:block; width:100%; height:100%; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="inner">
+
+    <div class="statusbar">
+      <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+      <span class="sb-path">~/profile — 1con-2004</span>
+      <span class="sb-live">● SYSTEM ONLINE</span>
+    </div>
+
+    <h1>吴益通</h1>
+    <div class="latin">YITONG WU</div>
+
+    <div class="rule"></div>
+
+    <div class="role">AI 工程师 · Vibe Coder <span class="en">/ AI Engineer</span></div>
+    <div class="tagline">
+      智能体 · 本地优先 AI · 自动化 —— 让想法跑起来
+      <br><span class="en">Building agents that ship. Local-first, privacy-first, AI-native.</span>
+    </div>
+
+    <div class="terminal">
+      <div class="tbar">
+        <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+        <span style="margin-left:10px">~/1con-2004/profile.json</span>
+      </div>
+      <div class="tbody">
+        <div class="row"><span class="k">身份</span><span class="v">AI 工程师 / Vibe Coder <span class="en">· AI Engineer &amp; Indie Dev</span></span></div>
+        <div class="row"><span class="k">方向</span><span class="v">智能体 · 本地优先 AI · 自动化 <span class="en">· Agents, Local-first AI, Automation</span></span></div>
+        <div class="row"><span class="k">技术</span><span class="v">Python · TypeScript · Vue · Java · Docker <span class="en">· LLM, RAG, Whisper</span></span></div>
+        <div class="row"><span class="k">模式</span><span class="v">公开记录 vibe，私下交付成品 <span class="en">· Vibe in public, shipping in private</span></span></div>
+        <div class="row"><span class="k">起始</span><span class="v"><em>2024</em> <span class="en">· 持续构建中 / Still shipping</span></span></div>
+        <div class="row"><span class="k">状态</span><span class="v"><span class="prompt">▸</span> 可接活 / 可聊技术 <span class="en">· Open to talk</span></span></div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <span class="stack-label">STACK</span>
+      <img src="https://skillicons.dev/icons?i=python,typescript,js,vue,docker,git,linux,fastapi,postgresql&theme=dark" alt="tech stack">
+    </div>
+
+    <div class="foot">
+      <span class="cy">●</span><span>状态正常</span>
+      <span class="sep">│</span>
+      <span class="pk">vibe-coding</span>
+      <span class="sep">│</span>
+      <span>since 2024</span>
+      <span class="right">1con-2004 · github</span>
+    </div>
+
+  </div>
+
+  <div class="wave">
+    <svg viewBox="0 0 1200 96" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="wg" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#ff2e63"/>
+          <stop offset="45%"  stop-color="#7000ff"/>
+          <stop offset="100%" stop-color="#05d9e8"/>
+        </linearGradient>
+        <linearGradient id="wf" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#05d9e8" stop-opacity=".22"/>
+          <stop offset="100%" stop-color="#08080c" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,54 C150,18 300,18 450,44 C600,70 750,78 900,50 C1050,22 1150,30 1200,44 L1200,96 L0,96 Z"
+            fill="url(#wf)"/>
+      <path d="M0,54 C150,18 300,18 450,44 C600,70 750,78 900,50 C1050,22 1150,30 1200,44"
+            fill="none" stroke="url(#wg)" stroke-width="2.5" opacity=".9"/>
+      <path d="M0,70 C150,34 300,34 450,60 C600,86 750,94 900,66 C1050,38 1150,46 1200,60"
+            fill="none" stroke="url(#wg)" stroke-width="1.2" opacity=".45"/>
+    </svg>
+  </div>
+
+</div>
+</body>
+</html>
