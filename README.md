@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/hero.png?v=2" width="100%" alt="yitongWu — AI 工程师 / Vibe Coder" />
+  <img src="https://raw.githubusercontent.com/1con-2004/1con-2004/main/assets/hero.png?v=2" width="100%" alt="yitongWu — AI 工程师 / Vibe Coder" />
 </div>
 
 <br>
