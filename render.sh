@@ -25,3 +25,17 @@ p = sys.argv[1]
 im = Image.open(p)
 print(f"输出: {p}  {im.size[0]}x{im.size[1]}  {im.size[0]//2}x{im.size[1]//2} CSS px")
 PY
+
+# GitHub 的 camo 图片代理按 URL 缓存，相对路径不含内容哈希 → 改图后必须破缓存
+# 这里自动把 README 里的 hero.png?v=N 递增一位
+python3 - <<'PY'
+import re, pathlib
+p = pathlib.Path("README.md")
+s = p.read_text(encoding="utf-8")
+new = re.sub(r"(hero\.png)\?v=(\d+)", lambda m: f"{m.group(1)}?v={int(m.group(2))+1}", s)
+if new != s:
+    p.write_text(new, encoding="utf-8")
+    print("README 图片版本号已自动 +1（破除 camo 缓存）")
+else:
+    print("README 图片版本号未变化")
+PY
